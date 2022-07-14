@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TaskRequest;
 
-use App\Models\TodoList;
+use App\Models\Task;
 
-class TodoListController extends Controller
+class TaskController extends Controller
 {
     /**
      * タスク一覧及び登録画面を表示
@@ -17,26 +18,25 @@ class TodoListController extends Controller
     public function create()
     {
         //
-        $todoLists = TodoList::all();
-        return view('todo_list', compact('todoLists'));
+        $tasks = Task::all();
+        return view('todo_list', compact('tasks'));
     }
 
     /**
      * 新規タスクの登録処理
-     *@param Illuminate\Http\Request $requests
+     * @param App\Http\Requests\TaskRequest $requests
      * @return \Illuminate\View\View
      */
 
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
         //
-        $state = 0;
+        $state = 1;
         $comment = $request->input('comment');
-        TodoList::create([
+        Task::create([
             'comment' => $comment,
             'state' => $state
         ]);
-
         return redirect()->route('create');
     }
 

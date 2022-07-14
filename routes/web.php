@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TodoListController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +14,6 @@ use App\Http\Controllers\TodoListController;
 |
 */
 
-Route::resource('/', TodoListController::class)->only([
+Route::resource('/', TaskController::class)->only([
     'create', 'store', 'edit', 'destroy'
 ]);
-
