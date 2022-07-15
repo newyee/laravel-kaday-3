@@ -40,9 +40,10 @@ class TaskController extends Controller
         return redirect()->route('create');
     }
 
-    public function destroy()
+    public function destroy($id)
     {
         //
+        dd('hogehoge');
     }
 
     public function edit()

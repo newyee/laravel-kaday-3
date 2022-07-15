@@ -31,7 +31,11 @@
                 <td>
                     <button type="submit">@if($task->state === 2) 完了 @else 作業中 @endif</button>
                 </td>
-                <td><button type="submit">削除</button></td>
+                <form action="{{ route('destroy', $task->id) }}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <td><button type="submit">削除</button></td>
+                </form>
             </tr>
             @endforeach
         </tbody>
