@@ -26,12 +26,16 @@
         <tbody>
             @foreach ($tasks as $task)
             <tr>
-                <td>{{ $task->id }}</td>
+                <td>{{ $loop->iteration }}</td>
                 <td>{{ $task->comment }}</td>
                 <td>
                     <button type="submit">@if($task->state === 2) 完了 @else 作業中 @endif</button>
                 </td>
-                <td><button type="submit">削除</button></td>
+                <form action="{{ route('tasks.destroy', $task->id) }}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <td><button type="submit">削除</button></td>
+                </form>
             </tr>
             @endforeach
         </tbody>
@@ -39,7 +43,7 @@
     @endisset
 
     <h3>新規タスクの追加</h3>
-    <form action="{{ route('store') }}" method="POST">
+    <form action="{{ route('tasks.store') }}" method="POST">
         @csrf
         <input type="text" name="comment">
         <input type="submit">

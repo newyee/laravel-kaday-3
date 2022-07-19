@@ -14,7 +14,7 @@ class TaskRequest extends FormRequest
 
     public function authorize()
     {
-        if ($this->path() == '/') {
+        if ($this->path() == 'tasks') {
             return true;
           } else {
             return false;

@@ -14,6 +14,6 @@ use App\Http\Controllers\TaskController;
 |
 */
 
-Route::resource('/', TaskController::class)->only([
+Route::resource('/tasks', TaskController::class)->only([
     'create', 'store', 'edit', 'destroy'
 ]);

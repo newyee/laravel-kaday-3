@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Http\Requests\TaskRequest;
 
@@ -17,7 +16,6 @@ class TaskController extends Controller
 
     public function create()
     {
-        //
         $tasks = Task::all();
         return view('todo_list', compact('tasks'));
     }
@@ -37,12 +35,20 @@ class TaskController extends Controller
             'comment' => $comment,
             'state' => $state
         ]);
-        return redirect()->route('create');
+        return redirect()->route('tasks.create');
     }
 
-    public function destroy()
+    /**
+     * 新規タスクの登録処理
+     * @param int  $id
+     * @return \Illuminate\View\View
+     */
+
+    public function destroy($id)
     {
-        //
+        $deleteTask = Task::find($id);
+        $deleteTask->delete();
+        return redirect()->route('tasks.create');
     }
 
     public function edit()
