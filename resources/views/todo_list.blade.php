@@ -28,9 +28,13 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $task->comment }}</td>
-                <td>
-                    <button type="submit">@if($task->state === 2) 完了 @else 作業中 @endif</button>
-                </td>
+                <form action="{{ route('tasks.update', $task->id) }}" method="POST">
+                    @csrf
+                    @method('patch')
+                    <td>
+                        <button type="submit">@if($task->state === 2) 完了 @else 作業中 @endif</button>
+                    </td>
+                </form>
                 <form action="{{ route('tasks.destroy', $task->id) }}" method="POST">
                     @csrf
                     @method('delete')
