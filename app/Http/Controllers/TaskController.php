@@ -16,8 +16,11 @@ class TaskController extends Controller
 
     public function create()
     {
-        $tasks = Task::all();
-        return view('todo_list', compact('tasks'));
+        $all = Task::all();
+        $working = Task::where('state', 1)->get();
+        $complete = Task::where('state', 2)->get();
+        session(['status' => 1]);
+        return view('todo_list', compact('all', 'working', 'complete'));
     }
 
     /**
@@ -67,5 +70,16 @@ class TaskController extends Controller
         }
         $updateTask->save();
         return redirect()->route('tasks.create');
+    }
+
+    public function changeTask(Request $request) {
+        if($request->todoList === 1) {
+            session(['status' => 1]);
+        }else if($request->todoList === 2){
+            session(['status' => 2]);
+        }else{
+            session(['status' => 3]);
+        }
+        return response()->json(['success'=>$request->todoList]);
     }
 }
