@@ -19,7 +19,11 @@ class TaskController extends Controller
         $all = Task::all();
         $working = Task::where('state', 1)->get();
         $complete = Task::where('state', 2)->get();
-        session(['status' => 1]);
+        $id = session('status');
+        if(!$id){
+            dd('aaaa');
+            session(['status' => 1]);
+        };
         return view('todo_list', compact('all', 'working', 'complete'));
     }
 
@@ -80,6 +84,7 @@ class TaskController extends Controller
         }else{
             session(['status' => 3]);
         }
+        return redirect('/tasks/create');
         return response()->json(['success'=>$request->todoList]);
     }
 }

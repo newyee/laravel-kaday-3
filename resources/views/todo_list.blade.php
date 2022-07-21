@@ -20,6 +20,7 @@
       <label for="complete">完了</label>
     </form>
     @isset($all)
+    @dump(session('status'))
     <table>
         <thead>
             <th>ID</th>
