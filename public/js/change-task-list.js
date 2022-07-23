@@ -1,30 +1,19 @@
-$(document).ready(function(){
+$(document).ready(function() {
 
-    let form = '#task-change-form';
+    $('#work').on('click', (_) => {
+        $('.all-task-row').addClass('display-none')
+        $('.work-task-row').removeClass('display-none')
+        $('.complete-task-row').addClass('display-none')
+    })
+    $('#all').on('click', (_) => {
+        $('.all-task-row').removeClass('display-none')
+        $('.work-task-row').addClass('display-none')
+        $('.complete-task-row').addClass('display-none')
+    })
+    $('#complete').on('click', (_) => {
+        $('.all-task-row').addClass('display-none')
+        $('.work-task-row').addClass('display-none')
+        $('.complete-task-row').removeClass('display-none')
+    })
 
-    $(form).on('click', (event) => {
-
-        let url = $(form).attr('data-action');
-        console.log('url', url)
-
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: new FormData($('#task-change-form').get(0)),
-            dataType: 'JSON',
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: (response) =>
-            {
-                // $(form).trigger("reset");
-                // location.reload()
-                console.log(response.success)
-            },
-            error: (err) => {
-                console.log(err)
-            }
-        });
-    });
-
-});
+})

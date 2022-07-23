@@ -12,7 +12,7 @@
     <h3>ToDoリスト</h3>
     <form data-action="{{ route('change') }}" method="post" id="task-change-form">
         @csrf
-      <input type="radio" id="all" name="todoList" value="1">
+      <input type="radio" id="all" name="todoList" value="1" checked>
       <label for="all">すべて</label>
       <input type="radio" id="work" name="todoList" value="2">
       <label for="work">作業中</label>
@@ -20,7 +20,6 @@
       <label for="complete">完了</label>
     </form>
     @isset($all)
-    @dump(session('status'))
     <table>
         <thead>
             <th>ID</th>
@@ -28,9 +27,9 @@
             <th>状態</th>
         </thead>
         <tbody>
-            @if(session('status') === 1)
+            <div id="all-task" class="all-task-block">
                 @foreach ($all as $task)
-                <tr>
+                <tr class="all-task-row">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $task->comment }}</td>
                     <form action="{{ route('tasks.update', $task->id) }}" method="POST">
@@ -47,9 +46,10 @@
                     </form>
                 </tr>
                 @endforeach
-            @elseif(session('status') === 2)
+            </div>
+            <div id="work-task" class="work-task-block">
                 @foreach ($working as $task)
-                <tr>
+                <tr class="work-task-row display-none" >
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $task->comment }}</td>
                     <form action="{{ route('tasks.update', $task->id) }}" method="POST">
@@ -66,9 +66,10 @@
                     </form>
                 </tr>
                 @endforeach
-            @else
+            </div>
+            <div id="complete-task" class="complete-task-block">
                 @foreach ($complete as $task)
-                <tr>
+                <tr class="complete-task-row display-none">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $task->comment }}</td>
                     <form action="{{ route('tasks.update', $task->id) }}" method="POST">
@@ -85,7 +86,7 @@
                     </form>
                 </tr>
                 @endforeach
-            @endif
+            </div>
         </tbody>
     </table>
     @endisset
