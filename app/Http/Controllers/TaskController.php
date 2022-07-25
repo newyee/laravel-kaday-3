@@ -14,10 +14,12 @@ class TaskController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public function create()
+    public function index()
     {
-        $tasks = Task::all();
-        return view('todo_list', compact('tasks'));
+        $all = Task::all();
+        $working = Task::where('state', 1)->get();
+        $complete = Task::where('state', 2)->get();
+        return view('todo_list', compact('all', 'working', 'complete'));
     }
 
     /**
@@ -28,14 +30,14 @@ class TaskController extends Controller
 
     public function store(TaskRequest $request)
     {
-        //
+        // 1 == 作業中
         $state = 1;
         $comment = $request->input('comment');
         Task::create([
             'comment' => $comment,
             'state' => $state
         ]);
-        return redirect()->route('tasks.create');
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -48,11 +50,25 @@ class TaskController extends Controller
     {
         $deleteTask = Task::find($id);
         $deleteTask->delete();
-        return redirect()->route('tasks.create');
+        return redirect()->route('tasks.index');
     }
 
-    public function edit()
+    /**
+     * タスクのステータス更新処理
+     * @param int  $id
+     * @return \Illuminate\View\View
+     */
+
+    public function update($id)
     {
-        //
+        $updateTask = Task::find($id);
+        if($updateTask->state == 1 ){
+            $updateTask->state = 2;
+        }else{
+            $updateTask->state = 1;
+        }
+        $updateTask->save();
+        return redirect()->route('tasks.index');
     }
+
 }
