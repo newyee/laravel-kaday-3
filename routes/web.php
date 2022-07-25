@@ -15,7 +15,6 @@ use App\Http\Controllers\TaskController;
 */
 
 Route::resource('/tasks', TaskController::class)->only([
-    'create', 'store', 'destroy', 'update'
+    'index', 'store', 'destroy', 'update'
 ]);
 
-Route::post('/tasks/change', [TaskController::class, 'changeTask'])->name('change');

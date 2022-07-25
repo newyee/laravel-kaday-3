@@ -10,7 +10,7 @@
 </head>
 <body>
     <h3>ToDoリスト</h3>
-    <form data-action="{{ route('change') }}" method="post" id="task-change-form">
+    <form>
         @csrf
       <input type="radio" id="all" name="todoList" value="1" checked>
       <label for="all">すべて</label>

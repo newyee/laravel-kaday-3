@@ -14,7 +14,7 @@ class TaskController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public function create()
+    public function index()
     {
         $all = Task::all();
         $working = Task::where('state', 1)->get();
@@ -37,7 +37,7 @@ class TaskController extends Controller
             'comment' => $comment,
             'state' => $state
         ]);
-        return redirect()->route('tasks.create');
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -50,7 +50,7 @@ class TaskController extends Controller
     {
         $deleteTask = Task::find($id);
         $deleteTask->delete();
-        return redirect()->route('tasks.create');
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -68,7 +68,7 @@ class TaskController extends Controller
             $updateTask->state = 1;
         }
         $updateTask->save();
-        return redirect()->route('tasks.create');
+        return redirect()->route('tasks.index');
     }
 
 }
